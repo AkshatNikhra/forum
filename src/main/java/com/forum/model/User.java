@@ -1,5 +1,7 @@
 package com.forum.model;
 
+import com.forum.dtos.UserReqDto;
+import com.forum.dtos.UserResDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -23,5 +25,20 @@ public class User extends BaseModel{
     @OneToMany(mappedBy = "user")
     @Cascade(CascadeType.ALL)
     private List<Post> postList;
+
+    public static User getUserFromReqDto(UserReqDto reqDto){
+        User user = new User();
+        user.setEmail(reqDto.getEmail());
+        user.setName(reqDto.getName());
+        return user;
+    }
+
+    public static UserResDto getResDtoFromUser(User user){
+        UserResDto userResDto = new UserResDto();
+        userResDto.setEmail(user.getEmail());
+        userResDto.setId(user.getId());
+        userResDto.setName(user.getName());
+        return userResDto;
+    }
 
 }
