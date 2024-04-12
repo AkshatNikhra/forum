@@ -1,13 +1,12 @@
 package com.forum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,9 +22,9 @@ public class Reply extends BaseModel {
     @JoinColumn(name="comment_id")
     private Comment comment;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "reply_id")
-    private Reply reply;
+    private List<Reply> replyList;
 
     private String text;
 

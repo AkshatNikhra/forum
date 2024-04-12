@@ -18,7 +18,7 @@ public class PostSeriveImpl implements PostService{
     private UserRepo userRepo;
     @Override
     public PostResDto createNewPost(PostReqDto postReqDto) {
-        User user = userRepo.findById(postReqDto.getId()).get();
+        User user = userRepo.findById(postReqDto.getUserId()).get();
         Post post = Post.getPostFromPostReqDto(postReqDto, user);
         post = postRepo.save(post);
         return Post.getPostResDtoFromPost(post);

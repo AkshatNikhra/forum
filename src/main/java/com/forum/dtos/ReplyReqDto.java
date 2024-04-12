@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PostReqDto {
+public class ReplyReqDto {
     private Long userId;
+    private Long commentId;
+    private Long replyId;
     private String text;
 }

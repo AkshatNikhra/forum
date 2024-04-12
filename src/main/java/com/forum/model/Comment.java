@@ -1,5 +1,7 @@
 package com.forum.model;
 
+import com.forum.dtos.CommentReqDto;
+import com.forum.dtos.CommentResDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -33,6 +35,20 @@ public class Comment extends BaseModel {
 
     private String text;
 
+    public static Comment getCommentFromCommentReqDto(User user, Post post, CommentReqDto commentReqDto){
+        Comment comment = new Comment();
+        comment.setPost(post);
+        comment.setUser(user);
+        comment.setText(commentReqDto.getText());
+        return comment;
+    }
 
+    public static CommentResDto getCommentResDtoFromComment(Comment comment){
+        CommentResDto commentResDto = new CommentResDto();
+        commentResDto.setPostResDto(Post.getPostResDtoFromPost(comment.getPost()));
+        commentResDto.setText(comment.getText());
+        commentResDto.setUserResDto(User.getResDtoFromUser(comment.getUser()));
+        return commentResDto;
+    }
 
 }
