@@ -23,4 +23,11 @@ public class PostSeriveImpl implements PostService{
         post = postRepo.save(post);
         return Post.getPostResDtoFromPost(post);
     }
+
+    @Override
+    public PostResDto getPostData(Long postId) {
+        Post post = postRepo.findById(postId).get();
+
+        return Post.getPostResDtoFromPost(post);
+    }
 }

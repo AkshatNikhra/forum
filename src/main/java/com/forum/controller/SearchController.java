@@ -1,6 +1,7 @@
 package com.forum.controller;
 
 import com.forum.dtos.PostResDto;
+import com.forum.dtos.PostSearchResDto;
 import com.forum.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,9 @@ public class SearchController {
     private SearchService searchService;
 
     @GetMapping
-    ResponseEntity<List<PostResDto>> getPostMatching(@RequestParam String searchText){
-        List<PostResDto> postResDtoList = searchService.getAllPosts(searchText);
+    @CrossOrigin(origins = "http://localhost:3000")
+    ResponseEntity<List<PostSearchResDto>> getPostMatching(@RequestParam String searchText){
+        List<PostSearchResDto> postResDtoList = searchService.getAllPosts(searchText);
         return new ResponseEntity<>(postResDtoList, HttpStatus.OK);
     }
 

@@ -30,7 +30,6 @@ public class CommentServiceImpl implements CommentService{
         post.setCommentList(commentList);
         post = postRepo.save(post);
         CommentResDto commentResDto = new CommentResDto();
-        commentResDto.setPostResDto(Post.getPostResDtoFromPost(post));
         commentResDto.setText(comment.getText());
         commentResDto.setUserResDto(User.getResDtoFromUser(user));
         return commentResDto;

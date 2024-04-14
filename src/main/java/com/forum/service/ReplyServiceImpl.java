@@ -39,6 +39,7 @@ public class ReplyServiceImpl implements ReplyService{
             reply = replyRepo.save(reply);
             replyResDto.setReplyId(prevReply.getId());
             replyResDto.setText(reply.getText());
+            replyResDto.setReplyId(reply.getId());
 
         }else{
             Comment comment = commentRepo.findById(replyReqDto.getCommentId()).get();
@@ -50,7 +51,7 @@ public class ReplyServiceImpl implements ReplyService{
             replyList.add(reply);
             commentRepo.save(comment);
             replyResDto.setText(reply.getText());
-            replyResDto.setCommentResDto(Comment.getCommentResDtoFromComment(comment));
+            replyResDto.setReplyId(reply.getId());
         }
         return replyResDto;
     }
@@ -64,7 +65,7 @@ public class ReplyServiceImpl implements ReplyService{
             ReplyResDto replyResDto = new ReplyResDto();
             replyResDto.setText(reply.getText());
             replyResDto.setUser(User.getResDtoFromUser(reply.getUser()));
-            replyResDto.setCommentResDto(Comment.getCommentResDtoFromComment(comment));
+            replyResDto.setReplyId(reply.getId());
             replyResDtoList.add(replyResDto);
         }
         return replyResDtoList;

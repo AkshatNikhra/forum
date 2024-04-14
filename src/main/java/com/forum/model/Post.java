@@ -1,5 +1,7 @@
 package com.forum.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.forum.dtos.CommentResDto;
 import com.forum.dtos.PostReqDto;
 import com.forum.dtos.PostResDto;
 import jakarta.persistence.Entity;
@@ -14,7 +16,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Post extends BaseModel{
 
     @OneToMany(mappedBy = "post")
     @Cascade(CascadeType.ALL)
+    @JsonManagedReference
     private List<Comment> commentList;
 
     public static List<PostResDto> findPostResDtoFromPost(List<Post> postList){
@@ -56,6 +58,13 @@ public class Post extends BaseModel{
         PostResDto postResDto = new PostResDto();
         postResDto.setUserResDto(User.getResDtoFromUser(post.getUser()));
         postResDto.setText(post.getText());
+        postResDto.setPostId(post.getId());
+        List<CommentResDto> commentResDtoList = new ArrayList<>();
+        for(Comment comment: post.commentList){
+            CommentResDto commentResDto = Comment.getCommentResDtoFromComment(comment);
+            commentResDtoList.add(commentResDto);
+        }
+        postResDto.setCommentResDtoList(commentResDtoList);
         return postResDto;
     }
 

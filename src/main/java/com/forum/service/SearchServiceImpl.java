@@ -1,6 +1,7 @@
 package com.forum.service;
 
 import com.forum.dtos.PostResDto;
+import com.forum.dtos.PostSearchResDto;
 import com.forum.model.Post;
 import jakarta.persistence.EntityManager;
 import org.hibernate.search.engine.search.query.SearchResult;
@@ -25,7 +26,7 @@ public class SearchServiceImpl implements SearchService{
     }
 
     @Override
-    public List<PostResDto> getAllPosts(String searchQuery) {
+    public List<PostSearchResDto> getAllPosts(String searchQuery) {
         SearchSession searchSession = Search.session(entityManager);
         SearchResult<Post> searchResult = searchSession.search(Post.class)
                 .where(f -> f.match()
@@ -34,11 +35,13 @@ public class SearchServiceImpl implements SearchService{
                 .fetch(20);
         long hitResults = searchResult.total().hitCount();
         List<Post> postList = searchResult.hits();
-        List<PostResDto> postResDtoList = new ArrayList<>();
+        List<PostSearchResDto> postSearchResDtoArrayList = new ArrayList<>();
         for(Post post : postList){
-            PostResDto postResDto = Post.getPostResDtoFromPost(post);
-            postResDtoList.add(postResDto);
+            PostSearchResDto postSearchResDto = new PostSearchResDto();
+            postSearchResDto.setPostId(post.getId());
+            postSearchResDto.setText(post.getText());
+            postSearchResDtoArrayList.add(postSearchResDto);
         }
-        return postResDtoList;
+        return postSearchResDtoArrayList;
     }
 }

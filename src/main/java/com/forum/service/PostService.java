@@ -5,4 +5,5 @@ import com.forum.dtos.PostResDto;
 
 public interface PostService {
     public PostResDto createNewPost(PostReqDto postReqDto);
+    public PostResDto getPostData(Long id);
 }
