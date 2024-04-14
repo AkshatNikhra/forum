@@ -8,15 +8,8 @@ class Post extends Component{
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
-    async handleClick(evt){
-        const getParticularPostUrl = `${BASE_URL}post/${this.props.data.postId}`
-        console.log(getParticularPostUrl)
-        let postData = await axios.get(getParticularPostUrl,{
-            headers: {
-                Accept: "application/json"
-            }
-        })
-        console.log(postData.data);
+    handleClick(evt){
+        this.props.showDataOfPost(this.props.data.postId);    
     }
     render(){
         return(

@@ -22,7 +22,8 @@ class Search extends Component{
     render(){
         return(
             <div>
-                <h1>Search Component</h1>
+                <h1>Search Component </h1>
+                <label htmlFor="searchQuery">Search Component</label>
                 <form onSubmit={this.handleSubmit}>
                     <input 
                         type="text"
