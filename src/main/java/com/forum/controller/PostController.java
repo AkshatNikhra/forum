@@ -14,6 +14,7 @@ public class PostController {
     @Autowired
     PostService postService;
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<PostResDto> createNewPost(@RequestBody PostReqDto postReqDto){
         PostResDto postResDto = postService.createNewPost(postReqDto);
 

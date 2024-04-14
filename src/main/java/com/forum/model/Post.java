@@ -60,6 +60,10 @@ public class Post extends BaseModel{
         postResDto.setText(post.getText());
         postResDto.setPostId(post.getId());
         List<CommentResDto> commentResDtoList = new ArrayList<>();
+        if(post.commentList == null){
+            postResDto.setCommentResDtoList(commentResDtoList);
+            return postResDto;
+        }
         for(Comment comment: post.commentList){
             CommentResDto commentResDto = Comment.getCommentResDtoFromComment(comment);
             commentResDtoList.add(commentResDto);
