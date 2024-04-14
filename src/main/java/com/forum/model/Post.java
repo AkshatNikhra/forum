@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Indexed(index = "post")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post extends BaseModel{
@@ -26,6 +31,7 @@ public class Post extends BaseModel{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @FullTextField
     private String text;
 
     @OneToMany(mappedBy = "post")
